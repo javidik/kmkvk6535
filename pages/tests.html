@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты профориентации - Портал КМКВК</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .test-card {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .test-info {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .test-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .test-stat-icon {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .test-container {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .question-container {
+            background-color: var(--background);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .rating-option input[type="radio"] {
+            appearance: none;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .rating-option input[type="radio"]:checked {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .rating-option span {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .test-result {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .recommendations {
+            background-color: var(--background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">⚓ <span><strong>КМКВК</strong><br><span class="logo-text">Тесты</span></span></div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Главная</a></li>
+                <li><a href="vuzy.html" class="nav-link">ВУЗы</a></li>
+                <li><a href="tests.html" class="nav-link">Тесты</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-profile" id="profileBtn" onclick="if(AppState.isLoggedIn) window.location.href='profile.html';">
+                    Профиль
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main style="padding: 2rem 0; min-height: 600px;">
+        <div class="container">
+            <h1 style="margin-bottom: 1rem;">Профориентационные тесты</h1>
+            <p class="text-secondary" style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Пройди лицензированные тесты для определения своей профессиональной пригодности
+            </p>
+
+            <!-- TESTS GRID -->
+            <div id="testsContainer" class="grid grid-2" style="margin-bottom: 3rem;">
+                <p>Загрузка тестов...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- TEST MODAL -->
+    <div id="testModal" class="modal">
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <span class="modal-close" onclick="Utils.closeModal('testModal')">&times;</span>
+            <div id="testContent"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="vuzy.html">ВУЗы</a></li>
+                    <li><a href="tests.html">Тесты</a></li>
+                    <li><a href="library.html">Библиотека</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 КМКВК. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/tests.js"></script>
+    <script>
+        let allTests = [];
+        let currentTestEngine = null;
+
+        async function loadTests() {
+            allTests = await Utils.fetchJSON('../data/tests.json');
+            if (allTests && allTests.tests) {
+                displayTests(allTests.tests);
+            }
+        }
+
+        function displayTests(tests) {
+            const container = document.getElementById('testsContainer');
+            container.innerHTML = '';
+
+            tests.forEach(test => {
+                const isFavorite = AppState.userProgress.tests.includes(test.id);
+                const hasResult = AppState.userProgress.testResults[test.id];
+
+                const card = document.createElement('div');
+                card.className = 'card test-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <h3 class="card-title">${test.name}</h3>
+                        <span class="badge badge-primary">${test.author}</span>
+                    </div>
+                    <div class="card-body">
+                        <p>${test.description}</p>
+                        <div class="test-info">
+                            <div class="test-stat">
+                                <span class="test-stat-icon">⏱️</span>
+                                <span>${test.duration}</span>
+                            </div>
+                            <div class="test-stat">
+                                <span class="test-stat-icon">❓</span>
+                                <span>${test.questions} вопросов</span>
+                            </div>
+                            <div class="test-stat">
+                                <span class="test-stat-icon">📋</span>
+                                <span>${test.license}</span>
+                            </div>
+                        </div>
+                        ${hasResult ? `<p style="margin-top: 1rem; color: var(--success);"><strong>✓ Пройден</strong> - Результат: ${hasResult.score}%</p>` : ''}
+                    </div>
+                    <div class="card-footer">
+                        ${hasResult ? `<button class="btn btn-secondary btn-small" onclick="startTest('${test.id}', '${test.name}')">Пройти заново</button>` : `<button class="btn btn-primary btn-small" onclick="startTest('${test.id}', '${test.name}')">Начать тест</button>`}
+                        <button class="btn btn-accent btn-small" onclick="AppState.addFavoriteVuz('${test.id}'); Utils.showNotification('Добавлено в избранное!', 'success');">☆ Избранное</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function startTest(testId, testName) {
+            currentTestEngine = new TestEngine(testId);
+            currentTestEngine.questions = generateDemoQuestions(10);
+            currentTestEngine.testData = { name: testName };
+
+            renderTestSession();
+            Utils.openModal('testModal');
+        }
+
+        function renderTestSession() {
+            const content = document.getElementById('testContent');
+
+            if (currentTestEngine.currentQuestion < currentTestEngine.questions.length) {
+                // Рендер вопроса
+                const progress = Math.round((currentTestEngine.currentQuestion / currentTestEngine.questions.length) * 100);
+
+                content.innerHTML = `
+                    <h2 style="margin-bottom: 1rem;">${currentTestEngine.testData.name}</h2>
+
+                    <div class="progress-section">
+                        <p style="margin-bottom: 0.5rem;">Вопрос ${currentTestEngine.currentQuestion + 1} из ${currentTestEngine.questions.length}</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        ${renderTestQuestion(currentTestEngine)}
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${currentTestEngine.currentQuestion === 0 ? 'disabled' : ''}>
+                            ← Назад
+                        </button>
+                        ${currentTestEngine.currentQuestion === currentTestEngine.questions.length - 1 
+                            ? `<button class="btn btn-primary" onclick="submitTest()">Завершить тест</button>` 
+                            : `<button class="btn btn-primary" onclick="nextQuestion()">Далее →</button>`
+                        }
+                    </div>
+                `;
+            }
+        }
+
+        function nextQuestion() {
+            if (currentTestEngine.nextQuestion()) {
+                renderTestSession();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentTestEngine.previousQuestion()) {
+                renderTestSession();
+            }
+        }
+
+        function submitTest() {
+            const result = currentTestEngine.submitTest();
+            const recommendations = generateRecommendations(result.score, currentTestEngine.testData.name);
+
+            const content = document.getElementById('testContent');
+            content.innerHTML = `
+                <h2 style="text-align: center; margin-bottom: 1rem;">Результаты теста</h2>
+
+                <div class="test-result">
+                    <div class="result-score">${result.score}%</div>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Ваша оценка</p>
+
+                    <p><strong>Вопросов ответено:</strong> ${result.total} из ${result.total}</p>
+                    <p><strong>Процент выполнения:</strong> ${result.percentage}%</p>
+                </div>
+
+                <div class="recommendations">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">📝 Рекомендации:</h4>
+                    <ul>
+                        ${recommendations.map(r => `<li style="margin-bottom: 0.5rem;">${r}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: center;">
+                    <button class="btn btn-primary" onclick="Utils.closeModal('testModal')">Закрыть</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='tests.html'">К тестам</button>
+                </div>
+            `;
+
+            AppState.addToHistory('Прохождение теста', currentTestEngine.testData.name + ' - ' + result.score + '%');
+        }
+
+        // Загружаем тесты при загрузке страницы
+        loadTests();
+    </script>
+</body>
+</html>
