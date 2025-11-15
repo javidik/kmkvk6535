@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог военных ВУЗов МО РФ - Портал КМКВК</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .filter-section {
+            background-color: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .vuz-card .card-title {
+            color: var(--accent);
+        }
+
+        .vuz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vuz-details {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                ⚓ <span>
+                    <strong>КМКВК</strong><br>
+                    <span class="logo-text">Путь к военной карьере</span>
+                </span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Главная</a></li>
+                <li><a href="vuzy.html" class="nav-link">ВУЗы</a></li>
+                <li><a href="requirements.html" class="nav-link">Требования</a></li>
+                <li><a href="tests.html" class="nav-link">Тесты</a></li>
+                <li><a href="library.html" class="nav-link">Библиотека</a></li>
+                <li><a href="contacts.html" class="nav-link">Контакты</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-profile" id="profileBtn" onclick="if(AppState.isLoggedIn) window.location.href='profile.html'; else document.getElementById('authModal').classList.add('active');">
+                    Профиль
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main style="min-height: 600px; padding: 2rem 0;">
+        <div class="container">
+            <h1 style="margin-bottom: 1rem;">Каталог ВУЗов МО РФ</h1>
+            <p class="text-secondary" style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Более 27 ведущих военных учебных заведений России. Найди свой ВУЗ!
+            </p>
+
+            <!-- FILTER SECTION -->
+            <div class="filter-section">
+                <h3 style="margin-bottom: 1rem;">Фильтры</h3>
+                <div class="filter-controls">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="typeFilter">Вид войск:</label>
+                        <select id="typeFilter" class="filter-input filter-type" onchange="filterVuzy()">
+                            <option value="">Все</option>
+                            <option value="ВМФ">ВМФ</option>
+                            <option value="ВКС">ВКС</option>
+                            <option value="ВКС и ПВО">ВКС и ПВО</option>
+                            <option value="Сухопутные войска">Сухопутные войска</option>
+                            <option value="Специальные войска">Специальные войска</option>
+                            <option value="Обеспечение">Обеспечение</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="egeFilter">Предмет ЕГЭ:</label>
+                        <select id="egeFilter" class="filter-input filter-ege" onchange="filterVuzy()">
+                            <option value="">Все</option>
+                            <option value="Физика">Физика</option>
+                            <option value="Обществознание">Обществознание</option>
+                            <option value="История">История</option>
+                            <option value="Химия">Химия</option>
+                            <option value="Биология">Биология</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="searchVuzy">Поиск:</label>
+                        <input type="text" id="searchVuzy" class="filter-input" placeholder="Название ВУЗа..." onkeyup="filterVuzy()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- VUZY GRID -->
+            <div id="vuziesContainer">
+                <div class="vuz-grid" id="vuzGrid">
+                    <p>Загрузка ВУЗов...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- VUZ DETAILS MODAL -->
+    <div id="vuzDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="modal-close" onclick="Utils.closeModal('vuzDetailsModal')">&times;</span>
+            <div id="vuzDetailsContent"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>О портале</h3>
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#mission">Наша миссия</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="vuzy.html">ВУЗы</a></li>
+                    <li><a href="library.html">Библиотека</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>+7 (812) 123-45-67</p>
+                <p>info@kmkvk.ru</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 КМКВК. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/tests.js"></script>
+    <script>
+        let allVuzy = [];
+
+        async function loadVuzy() {
+            allVuzy = await Utils.fetchJSON('../data/vuzy.json');
+            if (allVuzy) {
+                displayVuzy(flattenVuzy(allVuzy));
+            }
+        }
+
+        function flattenVuzy(data) {
+            let flat = [];
+            for (let category in data) {
+                flat = flat.concat(data[category]);
+            }
+            return flat;
+        }
+
+        function displayVuzy(vuzy) {
+            const grid = document.getElementById('vuzGrid');
+            grid.innerHTML = '';
+
+            if (vuzy.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1;">ВУЗы не найдены. Попробуйте изменить фильтры.</p>';
+                return;
+            }
+
+            vuzy.forEach(vuz => {
+                const card = document.createElement('div');
+                card.className = 'card vuz-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <h3 class="card-title">${vuz.name}</h3>
+                        <span class="badge badge-primary">${vuz.type}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>🏙️ Город:</strong> ${vuz.city}</p>
+                        <p><strong>📚 Специальности:</strong> ${vuz.specialties.slice(0, 2).join(', ')}...</p>
+                        <p><strong>📖 Предметы ЕГЭ:</strong> ${vuz.ege.join(', ')}</p>
+                        <p><strong>🎯 Мин. баллов:</strong> <span class="badge badge-accent">${vuz.minBalls}</span></p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-accent btn-small" onclick="AppState.addFavoriteVuz('${vuz.id}'); Utils.showNotification('Добавлено в избранное!', 'success');">
+                            ☆ Избранное
+                        </button>
+                        <button class="btn btn-primary btn-small" onclick="showVuzDetails('${JSON.stringify(vuz).replace(/'/g, '&#39;')}')">
+                            Подробнее →
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterVuzy() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const egeFilter = document.getElementById('egeFilter').value;
+            const searchText = document.getElementById('searchVuzy').value.toLowerCase();
+
+            let filtered = flattenVuzy(allVuzy);
+
+            if (typeFilter) {
+                filtered = filtered.filter(v => v.type === typeFilter);
+            }
+            if (egeFilter) {
+                filtered = filtered.filter(v => v.ege.includes(egeFilter));
+            }
+            if (searchText) {
+                filtered = filtered.filter(v => v.name.toLowerCase().includes(searchText));
+            }
+
+            displayVuzy(filtered);
+        }
+
+        function showVuzDetails(vuzJson) {
+            const vuz = JSON.parse(vuzJson);
+            const content = document.getElementById('vuzDetailsContent');
+
+            content.innerHTML = `
+                <h2>${vuz.name}</h2>
+                <p class="text-secondary" style="margin-bottom: 1.5rem;">${vuz.type} | ${vuz.city}</p>
+
+                <h4>О ВУЗе:</h4>
+                <p>${vuz.description}</p>
+
+                <h4 style="margin-top: 1.5rem;">Специальности подготовки:</h4>
+                <ul>
+                    ${vuz.specialties.map(s => `<li>${s}</li>`).join('')}
+                </ul>
+
+                <h4 style="margin-top: 1.5rem;">Требования:</h4>
+                <p><strong>Предметы ЕГЭ:</strong> ${vuz.ege.join(', ')}</p>
+                <p><strong>Минимальный балл:</strong> ${vuz.minBalls}</p>
+
+                <h4 style="margin-top: 1.5rem;">Контакты:</h4>
+                <p><strong>Адрес:</strong> ${vuz.address}</p>
+                <p><strong>Телефон:</strong> ${vuz.phone}</p>
+                <p><strong>Сайт:</strong> <a href="${vuz.website}" target="_blank">${vuz.website}</a></p>
+
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <button class="btn btn-accent" onclick="AppState.addFavoriteVuz('${vuz.id}'); Utils.showNotification('Добавлено в избранное!', 'success'); Utils.closeModal('vuzDetailsModal');">
+                        ★ Добавить в избранное
+                    </button>
+                </div>
+            `;
+
+            Utils.openModal('vuzDetailsModal');
+        }
+
+        // Загрузим ВУЗы при загрузке страницы
+        loadVuzy();
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Часто задаваемые вопросы - Портал КМКВК</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .faq-item {
+            margin-bottom: 1rem;
+            background-color: var(--surface);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .faq-question:hover {
+            background-color: var(--background);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.open {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">⚓ <span><strong>КМКВК</strong><br><span class="logo-text">FAQ</span></span></div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Главная</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-profile" id="profileBtn">Профиль</button>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem 0; min-height: 600px;">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">Часто задаваемые вопросы</h1>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Какие льготы имеют выпускники КМКВК?</span>
+                    <span style="font-size: 1.5rem;">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Выпускники КМКВК имеют право на льготное поступление без экзаменов в военные ВУЗы МО РФ и приоритет при равных баллах с другими кандидатами.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Когда нужно подавать документы?</span>
+                    <span style="font-size: 1.5rem;">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Документы подаются в военкомат до 1 апреля (для ВУЗов с гостайной) или до 20 апреля (для остальных ВУЗов).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Какие предметы ЕГЭ нужны?</span>
+                    <span style="font-size: 1.5rem;">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Обязательные: русский язык и математика (профильная). Дополнительные зависят от специальности: физика (техи), обществознание (командные), история (гуманитарные), химия/биология (медицинские).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Как готовиться к физическим нормативам?</span>
+                    <span style="font-size: 1.5rem;">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Рекомендуется заниматься в спортклубе КМКВК под руководством тренера. Минимальные нормативы: подтягивание 12 раз, бег 100м за 15,5 сек, плавание 100м за 2:40.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Что проверяют на медосмотре?</span>
+                    <span style="font-size: 1.5rem;">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Медосмотр включает прием у 8 специалистов: терапевт, хирург, невролог, психиатр, офтальмолог, ЛОР, стоматолог, дерматолог. Требуются анализы крови, мочи, ЭКГ, флюорография.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section"><h3>Помощь</h3><ul><li><a href="contacts.html">Контакты</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025 КМКВК</p></div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('open');
+            element.querySelector('span:last-child').textContent = 
+                answer.classList.contains('open') ? '−' : '+';
+        }
+    </script>
+</body>
+</html>

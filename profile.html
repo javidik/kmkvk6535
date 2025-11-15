@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Портал КМКВК</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .profile-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            background-color: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu button {
+            width: 100%;
+            padding: 0.75rem;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu button:hover,
+        .sidebar-menu button.active {
+            background-color: var(--background);
+            border-left-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .history-item {
+            padding: 1rem;
+            border-left: 4px solid var(--accent);
+            background-color: var(--background);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .history-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                height: auto;
+            }
+            .sidebar-menu {
+                display: contents;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">⚓ <span><strong>КМКВК</strong><br><span class="logo-text">Мой профиль</span></span></div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Главная</a></li>
+                <li><a href="vuzy.html" class="nav-link">ВУЗы</a></li>
+                <li><a href="tests.html" class="nav-link">Тесты</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn btn-primary" onclick="AppState.logout()">Выход</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main style="padding: 2rem 0; min-height: 600px;">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">Личный кабинет</h1>
+
+            <div class="profile-container">
+                <!-- SIDEBAR -->
+                <div class="sidebar">
+                    <h3 style="margin-bottom: 1rem;">Меню</h3>
+                    <ul class="sidebar-menu">
+                        <li><button class="sidebar-btn active" onclick="switchSection('overview')">📊 Обзор</button></li>
+                        <li><button class="sidebar-btn" onclick="switchSection('progress')">📈 Прогресс</button></li>
+                        <li><button class="sidebar-btn" onclick="switchSection('favorites')">⭐ Избранное</button></li>
+                        <li><button class="sidebar-btn" onclick="switchSection('history')">📜 История</button></li>
+                        <li><button class="sidebar-btn" onclick="switchSection('settings')">⚙️ Настройки</button></li>
+                    </ul>
+                </div>
+
+                <!-- MAIN CONTENT -->
+                <div class="main-content">
+                    <!-- OVERVIEW SECTION -->
+                    <div id="overview" class="content-section active">
+                        <div class="card" style="margin-bottom: 2rem;">
+                            <div class="card-header">
+                                <h2>Добро пожаловать!</h2>
+                            </div>
+                            <div class="card-body">
+                                <p id="welcomeText"></p>
+                                <div class="grid grid-4" style="margin-top: 2rem;">
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="testCount">0</div>
+                                        <p>Пройдено тестов</p>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="favoriteCount">0</div>
+                                        <p>ВУЗов в избранном</p>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="avgScore">0%</div>
+                                        <p>Средний результат</p>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="visitCount">0</div>
+                                        <p>Посещений портала</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-2">
+                            <div class="card">
+                                <h3>Последние тесты</h3>
+                                <div id="recentTests">
+                                    <p class="text-secondary">Вы еще не проходили тесты</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3>Быстрые ссылки</h3>
+                                <ul style="list-style: none;">
+                                    <li style="margin-bottom: 0.5rem;"><a href="vuzy.html">→ Каталог ВУЗов</a></li>
+                                    <li style="margin-bottom: 0.5rem;"><a href="tests.html">→ Профориентационные тесты</a></li>
+                                    <li style="margin-bottom: 0.5rem;"><a href="requirements.html">→ Требования к поступлению</a></li>
+                                    <li style="margin-bottom: 0.5rem;"><a href="timeline.html">→ Этапы поступления</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROGRESS SECTION -->
+                    <div id="progress" class="content-section">
+                        <div class="card">
+                            <h2>Ваш прогресс</h2>
+                            <div style="margin-top: 2rem;">
+                                <h4 style="margin-bottom: 1rem;">Прогресс по тестам</h4>
+                                <div style="margin-bottom: 2rem;">
+                                    <p>Тест Холланда</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 2rem;">
+                                    <p>Психологические тесты</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 2rem;">
+                                    <p>Общие интеллектуальные способности</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                                <h4 style="margin-bottom: 1rem;">Интерактивная карта компетенций</h4>
+                                <svg width="100%" height="300" viewBox="0 0 400 300">
+                                    <!-- Радарная диаграмма (упрощенная версия) -->
+                                    <circle cx="200" cy="150" r="100" fill="none" stroke="var(--border)" stroke-width="1"/>
+                                    <circle cx="200" cy="150" r="70" fill="none" stroke="var(--border)" stroke-width="1"/>
+                                    <circle cx="200" cy="150" r="40" fill="none" stroke="var(--border)" stroke-width="1"/>
+
+                                    <!-- Оси -->
+                                    <line x1="200" y1="50" x2="200" y2="250" stroke="var(--border)" stroke-width="1"/>
+                                    <line x1="100" y1="150" x2="300" y2="150" stroke="var(--border)" stroke-width="1"/>
+
+                                    <!-- Данные -->
+                                    <polygon points="200,100 270,120 260,190 200,200 140,190 130,120" fill="rgba(212,175,55,0.2)" stroke="var(--accent)" stroke-width="2"/>
+
+                                    <!-- Метки -->
+                                    <text x="200" y="30" text-anchor="middle" font-size="12" fill="var(--text-secondary)">Лидерство</text>
+                                    <text x="310" y="155" text-anchor="start" font-size="12" fill="var(--text-secondary)">Аналитика</text>
+                                    <text x="200" y="270" text-anchor="middle" font-size="12" fill="var(--text-secondary)">Коммуникация</text>
+                                    <text x="90" y="155" text-anchor="end" font-size="12" fill="var(--text-secondary)">Адаптивность</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAVORITES SECTION -->
+                    <div id="favorites" class="content-section">
+                        <div class="card">
+                            <h2>Избранные ВУЗы</h2>
+                            <div id="favoritesList" style="margin-top: 1rem;">
+                                <p class="text-secondary">У вас нет ВУЗов в избранном</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HISTORY SECTION -->
+                    <div id="history" class="content-section">
+                        <div class="card">
+                            <h2>История активности</h2>
+                            <div id="historyList" style="margin-top: 1rem;">
+                                <p class="text-secondary">История пуста</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SETTINGS SECTION -->
+                    <div id="settings" class="content-section">
+                        <div class="card">
+                            <h2>Настройки аккаунта</h2>
+                            <form style="margin-top: 1rem;">
+                                <div class="form-group">
+                                    <label for="userEmail">Email:</label>
+                                    <input type="email" id="userEmail" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userName">Имя:</label>
+                                    <input type="text" id="userName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="notificationToggle">
+                                        <input type="checkbox" id="notificationToggle" checked> Получать уведомления
+                                    </label>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="saveSettings()">Сохранить</button>
+                                <button type="button" class="btn btn-outline" onclick="AppState.logout()">Выход из аккаунта</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Быстрые ссылки</h3>
+                <ul>
+                    <li><a href="../index.html">Главная</a></li>
+                    <li><a href="vuzy.html">ВУЗы</a></li>
+                    <li><a href="tests.html">Тесты</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 КМКВК. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Проверка авторизации
+        if (!AppState.isLoggedIn) {
+            window.location.href = '../index.html';
+        }
+
+        // Инициализация профиля
+        function initProfile() {
+            if (!AppState.currentUser) return;
+
+            document.getElementById('welcomeText').textContent = 
+                'Добро пожаловать, ' + AppState.currentUser.name + '! ';
+            document.getElementById('userEmail').value = AppState.currentUser.email;
+            document.getElementById('userName').value = AppState.currentUser.name;
+
+            // Обновляем статистику
+            updateStats();
+            updateHistory();
+            updateFavorites();
+        }
+
+        function updateStats() {
+            document.getElementById('testCount').textContent = AppState.userProgress.tests.length;
+            document.getElementById('favoriteCount').textContent = AppState.userProgress.favoriteVuzy.length;
+
+            const totalScore = Object.values(AppState.userProgress.testResults)
+                .reduce((sum, test) => sum + (test.score || 0), 0);
+            const avgScore = AppState.userProgress.tests.length > 0 
+                ? Math.round(totalScore / AppState.userProgress.tests.length) 
+                : 0;
+            document.getElementById('avgScore').textContent = avgScore + '%';
+
+            document.getElementById('visitCount').textContent = AppState.userProgress.history.length;
+        }
+
+        function updateHistory() {
+            const historyList = document.getElementById('historyList');
+            if (AppState.userProgress.history.length === 0) {
+                historyList.innerHTML = '<p class="text-secondary">История пуста</p>';
+                return;
+            }
+
+            historyList.innerHTML = AppState.userProgress.history
+                .slice(-10)
+                .reverse()
+                .map(item => `
+                    <div class="history-item">
+                        <p><strong>${item.action}</strong></p>
+                        <p class="text-secondary">${item.details}</p>
+                        <p class="history-date">${Utils.formatDate(item.timestamp)}</p>
+                    </div>
+                `).join('');
+        }
+
+        function updateFavorites() {
+            // Здесь можно загрузить информацию об избранных ВУЗах
+            const favoritesList = document.getElementById('favoritesList');
+            if (AppState.userProgress.favoriteVuzy.length === 0) {
+                favoritesList.innerHTML = '<p class="text-secondary">У вас нет ВУЗов в избранном</p>';
+            } else {
+                favoritesList.innerHTML = `
+                    <p>Всего в избранном: ${AppState.userProgress.favoriteVuzy.length}</p>
+                    <a href="vuzy.html" class="btn btn-primary" style="margin-top: 1rem;">Перейти в каталог</a>
+                `;
+            }
+        }
+
+        function switchSection(sectionId) {
+            // Скрыть все секции
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sidebar-btn').forEach(el => el.classList.remove('active'));
+
+            // Показать выбранную секцию
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function saveSettings() {
+            const name = document.getElementById('userName').value;
+            AppState.currentUser.name = name;
+            AppState.saveToLocalStorage();
+            Utils.showNotification('Настройки сохранены!', 'success');
+        }
+
+        // Инициализация при загрузке страницы
+        initProfile();
+        AppState.addToHistory('Просмотр профиля', 'Вход в личный кабинет');
+    </script>
+</body>
+</html>

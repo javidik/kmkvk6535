@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путь к военной карьере - Портал профориентации КМКВК</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                ⚓ <span>
+                    <strong>КМКВК</strong><br>
+                    <span class="logo-text">Путь к военной карьере</span>
+                </span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="pages/vuzy.html" class="nav-link">ВУЗы</a></li>
+                <li><a href="pages/requirements.html" class="nav-link">Требования</a></li>
+                <li><a href="pages/tests.html" class="nav-link">Тесты</a></li>
+                <li><a href="pages/library.html" class="nav-link">Библиотека</a></li>
+                <li><a href="pages/contacts.html" class="nav-link">Контакты</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-profile" id="profileBtn" onclick="document.getElementById('authModal').classList.add('active')">
+                    Вход / Регистрация
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" style="background: linear-gradient(135deg, #1a3a52 0%, #2a5a7f 100%); color: white; padding: 4rem 0; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Добро пожаловать в портал профориентации</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e0e0e0;">
+                Твой путь в ведущие военные вузы Министерства обороны РФ начинается здесь
+            </p>
+            <button class="btn btn-accent btn-large" onclick="document.getElementById('authModal').classList.add('active')">
+                Начать прямо сейчас
+            </button>
+        </div>
+    </section>
+
+    <!-- QUICK ACCESS -->
+    <section style="padding: 3rem 0;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Быстрый доступ</h2>
+            <div class="grid grid-4">
+                <a href="pages/vuzy.html" class="card" style="text-decoration: none;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎓</div>
+                    <h3>Каталог ВУЗов</h3>
+                    <p>Найди идеальный ВУЗ среди 40+ учебных заведений МО РФ</p>
+                </a>
+                <a href="pages/requirements.html" class="card" style="text-decoration: none;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📋</div>
+                    <h3>Требования</h3>
+                    <p>Узнай все требования для поступления в военный ВУЗ</p>
+                </a>
+                <a href="pages/tests.html" class="card" style="text-decoration: none;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                    <h3>Тесты</h3>
+                    <p>Пройди профориентационные тесты и тесты способностей</p>
+                </a>
+                <a href="pages/timeline.html" class="card" style="text-decoration: none;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📅</div>
+                    <h3>Этапы поступления</h3>
+                    <p>Знай все важные даты и этапы процесса поступления</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section style="background-color: var(--primary); color: white; padding: 3rem 0;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--accent); margin-bottom: 2rem;">Особенности портала</h2>
+            <div class="grid grid-3">
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">✨ 27+ ВУЗов МО РФ</h4>
+                    <p>Полная информация о всех основных военных учебных заведениях России</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">📈 Трекинг прогресса</h4>
+                    <p>Отслеживай свой прогресс в личном кабинете с интерактивными картами</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">🎯 6 тестов</h4>
+                    <p>Лицензированные психологические и профориентационные тесты</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">💾 Избранное</h4>
+                    <p>Сохраняй ВУЗы и тесты в избранное для быстрого доступа</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">📚 Полная информация</h4>
+                    <p>Требования, нормативы, полезные советы в одном месте</p>
+                </div>
+                <div style="text-align: center;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">🔐 Безопасность</h4>
+                    <p>Защита личных данных и полная конфиденциальность</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALENDAR SECTION -->
+    <section style="padding: 3rem 0;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Календарь поступления</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">📅 До 1 апреля</h4>
+                    <p><strong>Подача заявлений в военкомат</strong></p>
+                    <p class="text-secondary">Для ВУЗов с требованием допуска к государственной тайне</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">📅 До 20 апреля</h4>
+                    <p><strong>Подача заявлений в военкомат</strong></p>
+                    <p class="text-secondary">Для остальных ВУЗов МО РФ</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">📅 Май - Июнь</h4>
+                    <p><strong>Сдача ЕГЭ</strong></p>
+                    <p class="text-secondary">Обязательные: русский язык, математика. Профильные по выбору</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">📅 1-30 Июля</h4>
+                    <p><strong>Профессиональный отбор в ВУЗе</strong></p>
+                    <p class="text-secondary">Медосмотр, психотест, физическая подготовка, ЕГЭ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section style="background: linear-gradient(135deg, #2a5a7f 0%, #1a3a52 100%); color: white; padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <div class="grid grid-4">
+                <div>
+                    <h3 style="font-size: 2.5rem; color: var(--accent);">27+</h3>
+                    <p>ВУЗов МО РФ</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; color: var(--accent);">6</h3>
+                    <p>Лицензированных тестов</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; color: var(--accent);">100+</h3>
+                    <p>Специальностей</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; color: var(--accent);">∞</h3>
+                    <p>Возможностей</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section style="background-color: var(--background); padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <h2 style="margin-bottom: 1rem;">Готов к поступлению?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-secondary);">
+                Создай аккаунт, пройди тесты и отследи свой прогресс
+            </p>
+            <button class="btn btn-accent btn-large" onclick="document.getElementById('authModal').classList.add('active')">
+                Зарегистрироваться сейчас
+            </button>
+        </div>
+    </section>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div id="authModal" class="modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="modal-close" onclick="Utils.closeModal('authModal')">&times;</span>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2>Вход / Регистрация</h2>
+                <p class="text-secondary">Создай свой профиль на портале</p>
+            </div>
+
+            <div class="tabs" style="margin-bottom: 2rem;">
+                <button class="tab-btn active" data-tab="login" onclick="event.target.classList.add('active'); document.querySelector('[data-tab=register]').classList.remove('active'); document.getElementById('loginForm').style.display='block'; document.getElementById('registerForm').style.display='none';">
+                    Вход
+                </button>
+                <button class="tab-btn" data-tab="register" onclick="event.target.classList.add('active'); document.querySelector('[data-tab=login]').classList.remove('active'); document.getElementById('loginForm').style.display='none'; document.getElementById('registerForm').style.display='block';">
+                    Регистрация
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль:</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Войти
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Имя:</label>
+                    <input type="text" id="regName" name="name" required placeholder="Иван Петров">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" name="email" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль:</label>
+                    <input type="password" id="regPassword" name="password" required placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword2">Подтвердить пароль:</label>
+                    <input type="password" id="regPassword2" name="password2" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Зарегистрироваться
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>О портале</h3>
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#mission">Наша миссия</a></li>
+                    <li><a href="#team">Команда</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="pages/vuzy.html">Каталог ВУЗов</a></li>
+                    <li><a href="pages/library.html">Библиотека</a></li>
+                    <li><a href="pages/tests.html">Тесты</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="pages/faq.html">FAQ</a></li>
+                    <li><a href="pages/contacts.html">Контакты</a></li>
+                    <li><a href="#privacy">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Санкт-Петербург, Кронверкская ул., 45</p>
+                <p>Email: info@kmkvk-portal.ru</p>
+                <p>Тел: +7 (812) 123-45-67</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 КМКВК Портал профориентации. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (AppState.login(email, password)) {
+                Utils.showNotification('Вы успешно вошли!', 'success');
+                Utils.closeModal('authModal');
+                setTimeout(() => {
+                    window.location.href = 'pages/profile.html';
+                }, 1000);
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const password2 = document.getElementById('regPassword2').value;
+
+            if (password !== password2) {
+                Utils.showNotification('Пароли не совпадают!', 'danger');
+                return;
+            }
+
+            if (AppState.login(email, password)) {
+                AppState.currentUser.name = name;
+                AppState.saveToLocalStorage();
+                Utils.showNotification('Вы успешно зарегистрировались!', 'success');
+                Utils.closeModal('authModal');
+                setTimeout(() => {
+                    window.location.href = 'pages/profile.html';
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

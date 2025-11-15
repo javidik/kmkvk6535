@@ -1,0 +1,22 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Development
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

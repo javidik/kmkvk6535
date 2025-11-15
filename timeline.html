@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Этапы поступления - Портал КМКВК</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 52%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 52%;
+            margin-right: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            border: 4px solid var(--surface);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .date {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-content li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-content li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-dot {
+                left: 15px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="container">
+            <div class="logo">⚓ <span><strong>КМКВК</strong><br><span class="logo-text">Этапы поступления</span></span></div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Главная</a></li>
+                <li><a href="vuzy.html" class="nav-link">ВУЗы</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-profile" id="profileBtn">Профиль</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main style="padding: 2rem 0;">
+        <div class="container">
+            <h1 style="margin-bottom: 1rem;">Этапы поступления в военный ВУЗ</h1>
+            <p class="text-secondary" style="font-size: 1.1rem; margin-bottom: 3rem;">
+                Полная информация о всех этапах процесса поступления в военные ВУЗы МО РФ
+            </p>
+
+            <div class="timeline">
+                <!-- ЭТАП 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 1: Выбор ВУЗа и специальности</h3>
+                        <p class="date">📅 До 20 апреля</p>
+                        <ul>
+                            <li>Изучить направления подготовки в каталоге</li>
+                            <li>Определить требуемые предметы ЕГЭ</li>
+                            <li>Ознакомиться с условиями поступления</li>
+                            <li>Проконсультироваться с ответственным за профориентацию</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЭТАП 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 2: Подача заявления в военкомат</h3>
+                        <p class="date">📅 До 1 апреля (или 20 апреля)</p>
+                        <ul>
+                            <li>Собрать необходимые документы</li>
+                            <li>Заполнить заявление установленного образца</li>
+                            <li>Подать документы в военкомат</li>
+                            <li>Получить расписку о приеме</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЭТАП 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 3: Предварительный отбор в военкомате</h3>
+                        <p class="date">📅 Апрель - май</p>
+                        <ul>
+                            <li>Прохождение медицинского осмотра</li>
+                            <li>Проверка документов комиссией</li>
+                            <li>Получение уведомления о допуске</li>
+                            <li>Передача документов в выбранный ВУЗ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЭТАП 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 4: Сдача ЕГЭ</h3>
+                        <p class="date">📅 Май - июнь</p>
+                        <ul>
+                            <li>Сдача обязательных предметов (русский язык, математика)</li>
+                            <li>Сдача профильных предметов по выбору</li>
+                            <li>Получение результатов ЕГЭ</li>
+                            <li>Отправка результатов в ВУЗ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЭТАП 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 5: Профессиональный отбор в ВУЗе</h3>
+                        <p class="date">📅 1-30 июля</p>
+                        <ul>
+                            <li>Окончательное медицинское освидетельствование</li>
+                            <li>Психологическое тестирование</li>
+                            <li>Проверка физической подготовки (нормативы)</li>
+                            <li>Проверка результатов ЕГЭ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ЭТАП 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Этап 6: Зачисление в ВУЗ</h3>
+                        <p class="date">📅 Конец июля - начало августа</p>
+                        <ul>
+                            <li>Подведение итогов конкурса</li>
+                            <li>Объявление списков зачисленных</li>
+                            <li>Оформление необходимых документов</li>
+                            <li>Прибытие в ВУЗ на обучение</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ВАЖНЫЕ ДАТЫ -->
+            <div class="card" style="margin-top: 3rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--accent);">📌 Ключевые даты 2025</h2>
+                <div class="grid grid-2">
+                    <div style="padding: 1rem; background-color: var(--background); border-radius: 8px;">
+                        <p><strong>1 апреля</strong></p>
+                        <p class="text-secondary">Крайний срок подачи документов для ВУЗов с гостайной</p>
+                    </div>
+                    <div style="padding: 1rem; background-color: var(--background); border-radius: 8px;">
+                        <p><strong>20 апреля</strong></p>
+                        <p class="text-secondary">Крайний срок подачи документов для остальных ВУЗов</p>
+                    </div>
+                    <div style="padding: 1rem; background-color: var(--background); border-radius: 8px;">
+                        <p><strong>Май - июнь</strong></p>
+                        <p class="text-secondary">Период проведения ЕГЭ</p>
+                    </div>
+                    <div style="padding: 1rem; background-color: var(--background); border-radius: 8px;">
+                        <p><strong>1-30 июля</strong></p>
+                        <p class="text-secondary">Профессиональный отбор в ВУЗе</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Ресурсы</h3>
+                <ul>
+                    <li><a href="vuzy.html">ВУЗы</a></li>
+                    <li><a href="requirements.html">Требования</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 КМКВК. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
